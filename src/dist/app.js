@@ -1,0 +1,11 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const Cliente_1 = require("./entities/Cliente");
+const ContaCorrente_1 = require("./entities/ContaCorrente");
+const ContaPoupanca_1 = require("./entities/ContaPoupanca");
+const cliente = new Cliente_1.Cliente('Mayara', 1, 'rua A, n1', '99999999');
+const ccCliente = new ContaCorrente_1.ContaCorrente(1, 0, cliente.id, 100);
+const cpCliente = new ContaPoupanca_1.ContaPoupanca(2, 0, cliente.id, 0.02);
+console.log(cliente);
+console.log(ccCliente);
+console.log(cpCliente);
