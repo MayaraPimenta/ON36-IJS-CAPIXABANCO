@@ -6,9 +6,9 @@
     "clienteId": 1
   },
   {
-    "id": 2,
-    "saldo": 100,
-    "tipo": "POUPANCA",
-    "clienteId": 1
+    "id": 3,
+    "saldo": 200,
+    "tipo": "CORRENTE",
+    "clienteId": 2
   }
 ]

@@ -36,18 +36,10 @@ export class GerenteController {
   @Post('cliente')
   criarCliente(
     @Body('nome') nome: string,
-    @Body('id') id: number,
     @Body('endereco') endereco: string,
     @Body('telefone') telefone: string,
-    @Body('gerente') gerenteId: number,
   ): Cliente {
-    return this.gerenteService.criarCliente(
-      nome,
-      id,
-      endereco,
-      telefone,
-      gerenteId,
-    );
+    return this.gerenteService.criarCliente(nome, endereco, telefone);
   }
 
   @Delete('cliente/:id')

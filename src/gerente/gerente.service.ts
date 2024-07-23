@@ -6,25 +6,19 @@ import { Cliente } from 'src/cliente/cliente.model';
 @Injectable()
 export class GerenteService {
   private readonly filePath = path.resolve('src/cliente/clientes.json');
-
   private lerClientes(): Cliente[] {
     const data = fs.readFileSync(this.filePath, 'utf8');
     return JSON.parse(data) as Cliente[];
   }
-
-  private escreverClientes(accounts: Cliente[]): void {
-    fs.writeFileSync(this.filePath, JSON.stringify(accounts, null, 2), 'utf8');
+  private escreverClientes(clientes: Cliente[]): void {
+    fs.writeFileSync(this.filePath, JSON.stringify(clientes, null, 2), 'utf8');
   }
 
-  criarCliente(
-    nome: string,
-    id: number,
-    endereco: string,
-    telefone: string,
-    gerenteId: number,
-  ): Cliente {
+  criarCliente(nome: string, endereco: string, telefone: string): Cliente {
     const clientes = this.lerClientes();
-    const novoCliente = new Cliente(nome, id, endereco, telefone, gerenteId);
+    const clienteId =
+      clientes.length > 0 ? clientes[clientes.length - 1].id + 1 : 1;
+    const novoCliente = new Cliente(nome, clienteId, endereco, telefone);
 
     clientes.push(novoCliente);
     this.escreverClientes(clientes);
