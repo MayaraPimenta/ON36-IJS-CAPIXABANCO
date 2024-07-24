@@ -1,16 +1,9 @@
+import { Pessoa } from 'src/pessoa/pessoa.model';
 import { Conta } from '../conta/conta.model';
-
-export class Cliente {
-  nome: string;
-  id: number;
-  endereco: string;
-  telefone: string;
+export class Cliente extends Pessoa {
   contas: Conta[] = [];
 
   constructor(nome: string, id: number, endereco: string, telefone: string) {
-    this.nome = nome;
-    this.id = id;
-    this.endereco = endereco;
-    this.telefone = telefone;
+    super(nome, id, endereco, telefone);
   }
 }
