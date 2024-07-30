@@ -1,4 +1,4 @@
-import { Transacao } from "./Transacao";
+import { Transacao } from './Transacao';
 
 export abstract class Conta {
   id: number;
@@ -6,7 +6,7 @@ export abstract class Conta {
   clienteId: number;
   transacoes: Transacao[] = [];
 
-  constructor (id: number, saldo: number, clienteId: number) {
+  constructor(id: number, saldo: number, clienteId: number) {
     this.id = id;
     this.clienteId = clienteId;
     this.saldo = saldo;

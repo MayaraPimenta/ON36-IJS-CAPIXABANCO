@@ -1,0 +1,16 @@
+[
+  {
+    "contas": [],
+    "nome": "Cliente 1",
+    "id": 1,
+    "endereco": "Rua B, N2, Bairro Colinas",
+    "telefone": "9999-9999"
+  },
+  {
+    "contas": [],
+    "nome": "Cliente 2",
+    "id": 2,
+    "endereco": "Rua B, N2, Bairro Colinas",
+    "telefone": "9999-9999"
+  }
+]

@@ -1,13 +1,10 @@
-import { Conta } from "./Conta";
-
-export class Cliente {
+export class Pessoa {
   nome: string;
   id: number;
   endereco: string;
   telefone: string;
-  contas: Conta[] = [];
 
-  constructor (nome: string, id: number, endereco: string, telefone: string) {
+  constructor(nome: string, id: number, endereco: string, telefone: string) {
     this.nome = nome;
     this.id = id;
     this.endereco = endereco;

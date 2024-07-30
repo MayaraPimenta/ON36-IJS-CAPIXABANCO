@@ -1,0 +1,14 @@
+[
+  {
+    "id": 1,
+    "saldo": 300,
+    "tipo": "CORRENTE",
+    "clienteId": 1
+  },
+  {
+    "id": 3,
+    "saldo": 200,
+    "tipo": "CORRENTE",
+    "clienteId": 2
+  }
+]
