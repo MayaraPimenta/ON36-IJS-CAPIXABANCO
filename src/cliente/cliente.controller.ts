@@ -1,5 +1,5 @@
 import { Body, Controller, Delete, Param, Patch, Post } from '@nestjs/common';
-import { Conta, TipoConta } from 'src/conta/conta.model';
+import { Conta, TipoConta } from 'src/conta/models/conta.model';
 import { ContaService } from 'src/conta/conta.service';
 
 @Controller('cliente')

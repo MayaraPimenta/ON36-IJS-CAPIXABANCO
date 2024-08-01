@@ -1,11 +1,11 @@
 import { Injectable } from '@nestjs/common';
 import * as path from 'path';
 import * as fs from 'fs';
-import { Cliente } from 'src/cliente/cliente.model';
+import { Cliente } from 'src/cliente/models/cliente.model';
 
 @Injectable()
 export class GerenteService {
-  private readonly filePath = path.resolve('src/cliente/clientes.json');
+  private readonly filePath = path.resolve('src/cliente/data/clientes.json');
   private lerClientes(): Cliente[] {
     const data = fs.readFileSync(this.filePath, 'utf8');
     return JSON.parse(data) as Cliente[];

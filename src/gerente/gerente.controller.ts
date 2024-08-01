@@ -1,6 +1,6 @@
 import { Body, Controller, Delete, Param, Patch, Post } from '@nestjs/common';
-import { Cliente } from 'src/cliente/cliente.model';
-import { Conta, TipoConta } from 'src/conta/conta.model';
+import { Cliente } from 'src/cliente/models/cliente.model';
+import { Conta, TipoConta } from 'src/conta/models/conta.model';
 import { ContaService } from 'src/conta/conta.service';
 import { GerenteService } from 'src/gerente/gerente.service';
 
