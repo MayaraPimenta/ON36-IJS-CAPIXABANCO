@@ -1,14 +1,14 @@
 [
   {
     "id": 1,
-    "saldo": 200,
+    "saldo": 250,
     "clienteId": 3,
     "tipo": "corrente",
     "transacoes": []
   },
   {
     "id": 2,
-    "saldo": 200,
+    "saldo": 400,
     "clienteId": 2,
     "tipo": "corrente",
     "transacoes": []

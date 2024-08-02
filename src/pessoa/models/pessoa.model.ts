@@ -6,3 +6,4 @@ export class Pessoa {
     public telefone: string,
   ) {}
 }
+//TODO: Transformar em interface

@@ -1,1 +1,51 @@
-[]
+[
+  {
+    "id": 1,
+    "valor": 100,
+    "dateTime": "2024-08-02T21:35:37.781Z",
+    "contaId": "1",
+    "tipo": 2
+  },
+  {
+    "id": 2,
+    "valor": 100,
+    "dateTime": "2024-08-02T21:36:52.750Z",
+    "contaId": "2",
+    "tipo": 2
+  },
+  {
+    "id": 3,
+    "valor": 100,
+    "dateTime": "2024-08-02T21:38:14.090Z",
+    "contaId": "2",
+    "tipo": 2
+  },
+  {
+    "id": 4,
+    "valor": 50,
+    "dateTime": "2024-08-02T21:38:32.855Z",
+    "contaId": "1",
+    "tipo": 2
+  },
+  {
+    "id": 5,
+    "valor": 50,
+    "dateTime": "2024-08-02T21:40:23.505Z",
+    "contaId": "1",
+    "tipo": 2
+  },
+  {
+    "id": 6,
+    "valor": 50,
+    "dateTime": "2024-08-02T21:57:36.121Z",
+    "contaId": 2,
+    "tipo": 2
+  },
+  {
+    "id": 7,
+    "valor": 50,
+    "dateTime": "2024-08-02T21:57:44.287Z",
+    "contaId": 2,
+    "tipo": 2
+  }
+]

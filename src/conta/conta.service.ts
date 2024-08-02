@@ -1,10 +1,10 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
-import { Conta, TipoConta } from './models/conta.model';
+import { Conta } from './models/conta.model';
 import { ContaFactory } from './factories/ContaFactory';
 import * as path from 'path';
 import * as fs from 'fs';
 import { Cliente } from 'src/cliente/models/cliente.model';
-import { Transacao } from 'src/transacao/models/transacao.model';
+import { TipoConta } from './enum/TipoConta';
 
 @Injectable()
 export class ContaService {
@@ -26,21 +26,6 @@ export class ContaService {
   private lerClientes(): Cliente[] {
     const data = fs.readFileSync(this.clienteFilePath, 'utf8');
     return JSON.parse(data) as Cliente[];
-  }
-
-  //transacao
-  // eslint-disable-next-line prettier/prettier
-  private readonly transacaoFilePath = path.resolve('src/transacao/data/transacoes.json');
-  private lerTransacoes(): Transacao[] {
-    const data = fs.readFileSync(this.transacaoFilePath, 'utf8');
-    return JSON.parse(data) as Transacao[];
-  }
-  private escreverTransacoes(transacoes: Transacao[]): void {
-    fs.writeFileSync(
-      this.transacaoFilePath,
-      JSON.stringify(transacoes, null, 2),
-      'utf8',
-    );
   }
 
   criarConta(saldo: number, clienteId: number, tipo: TipoConta): Conta {
@@ -84,22 +69,5 @@ export class ContaService {
     contas.splice(contaIndex, 1);
     this.escreverContas(contas);
   }
-
-  depositar(valor: number, contaId: number): Transacao {
-    const contas = this.lerContas();
-    const conta: Conta = contas.find(
-      (conta: Conta) => conta.id === Number(contaId),
-    );
-    const transacoes = this.lerTransacoes();
-
-    if (!conta) {
-      throw new NotFoundException('Conta não encontrada!');
-    }
-
-    const transacao = conta.depositar(valor);
-    transacoes.push(transacao);
-    this.escreverTransacoes(transacoes);
-
-    return transacao;
-  }
 }
+//TODO: Inserir senha pra cliente e/ou gerente
