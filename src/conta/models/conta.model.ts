@@ -10,3 +10,4 @@ export class Conta {
     public tipo: TipoConta,
   ) {}
 }
+//TODO: Adicionar metodos especificos de contaCorrente e contaPoupanca
