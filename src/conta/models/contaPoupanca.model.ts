@@ -1,4 +1,5 @@
-import { Conta, TipoConta } from 'src/conta/models/conta.model';
+import { Conta } from 'src/conta/models/conta.model';
+import { TipoConta } from '../enum/TipoConta';
 
 export class ContaPoupanca extends Conta {
   rendimentoMensal: number;
