@@ -26,5 +26,12 @@
     "clienteId": 2,
     "tipo": "poupanca",
     "transacoes": []
+  },
+  {
+    "id": 5,
+    "saldo": 100,
+    "clienteId": 3,
+    "tipo": "poupanca",
+    "transacoes": []
   }
 ]
