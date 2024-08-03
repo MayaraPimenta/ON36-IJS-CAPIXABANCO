@@ -1,7 +1,7 @@
-import { Cliente } from 'src/cliente/models/cliente.model';
+import { Cliente } from '../../cliente/models/cliente.model';
 import { TipoPessoa } from '../enum/TipoPessoa';
 import { Pessoa } from '../models/pessoa.model';
-import { Gerente } from 'src/gerente/models/gerente.model';
+import { Gerente } from '../../gerente/models/gerente.model';
 
 export class PessoaFactory extends Pessoa {
   criarPessoa(

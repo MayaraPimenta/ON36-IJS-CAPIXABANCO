@@ -1,5 +1,5 @@
-import { Pessoa } from 'src/pessoa/models/pessoa.model';
-import { Conta } from 'src/conta/models/conta.model';
+import { Pessoa } from '../../pessoa/models/pessoa.model';
+import { Conta } from '../../conta/models/conta.model';
 export class Cliente extends Pessoa {
   contas: Conta[] = [];
 
