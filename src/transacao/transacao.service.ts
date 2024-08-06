@@ -1,45 +1,24 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
-import * as path from 'path';
-import * as fs from 'fs';
-import { Conta } from 'src/conta/models/conta.model';
 import { Transacao, TipoTransacao } from './models/transacao.model';
+import { ContaRepository } from 'src/conta/conta.repository';
+import { TransacaoRepository } from './transacao.repository';
 
 @Injectable()
 export class TransacaoService {
-  //transacao
-  // eslint-disable-next-line prettier/prettier
-  private readonly transacaoPath = path.resolve('src/transacao/data/transacoes.json');
-  private lerTransacoes(): Transacao[] {
-    const data = fs.readFileSync(this.transacaoPath, 'utf8');
-    return JSON.parse(data) as Transacao[];
-  }
-  private escreverTransacoes(transacoes: Transacao[]): void {
-    fs.writeFileSync(
-      this.transacaoPath,
-      JSON.stringify(transacoes, null, 2),
-      'utf8',
-    );
-  }
-
-  //conta
-  private readonly contaPath = path.resolve('src/conta/data/contas.json');
-  private lerContas(): Conta[] {
-    const data = fs.readFileSync(this.contaPath, 'utf8');
-    return JSON.parse(data) as Conta[];
-  }
-  private escreverContas(contas: Conta[]): void {
-    fs.writeFileSync(this.contaPath, JSON.stringify(contas, null, 2), 'utf8');
-  }
+  constructor(
+    private readonly contaRepository: ContaRepository,
+    private readonly transacaoRepository: TransacaoRepository,
+  ) {}
 
   depositar(valor: number, contaId: number): Transacao {
-    const contas = this.lerContas();
+    const contas = this.contaRepository.lerContas();
     const conta = contas.find((conta) => conta.id === Number(contaId));
 
     if (!conta) {
       throw new NotFoundException('Conta não encontrada!');
     }
 
-    const transacoes = this.lerTransacoes();
+    const transacoes = this.transacaoRepository.lerTransacoes();
     const transacao = new Transacao(
       transacoes.length + 1,
       valor,
@@ -49,9 +28,9 @@ export class TransacaoService {
     );
 
     transacoes.push(transacao);
-    this.escreverTransacoes(transacoes);
+    this.transacaoRepository.escreverTransacoes(transacoes);
     conta.saldo = conta.saldo + valor;
-    this.escreverContas(contas);
+    this.contaRepository.escreverContas(contas);
 
     console.log('Depósito realizado com sucesso!');
 
@@ -59,7 +38,7 @@ export class TransacaoService {
   }
 
   sacar(valor: number, contaId: number): Transacao | null {
-    const contas = this.lerContas();
+    const contas = this.contaRepository.lerContas();
     const conta = contas.find((conta) => conta.id === Number(contaId));
 
     if (conta.saldo <= valor) {
@@ -68,7 +47,7 @@ export class TransacaoService {
       return null;
     }
 
-    const transacoes = this.lerTransacoes();
+    const transacoes = this.transacaoRepository.lerTransacoes();
     const transacao = new Transacao(
       transacoes.length + 1,
       valor,
@@ -78,7 +57,7 @@ export class TransacaoService {
     );
     transacoes.push(transacao);
     conta.saldo = conta.saldo + valor;
-    this.escreverContas(contas);
+    this.contaRepository.escreverContas(contas);
 
     console.log(`Saque realizado com sucesso! Saldo atual: R$${conta.saldo}`);
 
@@ -90,7 +69,7 @@ export class TransacaoService {
     contaId: number,
     contaDestinoId: number,
   ): Transacao | null {
-    const contas = this.lerContas();
+    const contas = this.contaRepository.lerContas();
     const contaEnvia = contas.find((conta) => conta.id === Number(contaId));
     const contaRecebe = contas.find(
       (conta) => conta.id === Number(contaDestinoId),
@@ -110,7 +89,7 @@ export class TransacaoService {
       return null;
     }
 
-    const transacoes = this.lerTransacoes();
+    const transacoes = this.transacaoRepository.lerTransacoes();
     const transacao = new Transacao(
       transacoes.length + 1,
       valor,
@@ -120,7 +99,7 @@ export class TransacaoService {
     );
     transacoes.push(transacao);
     contaEnvia.saldo = contaEnvia.saldo - valor;
-    this.escreverContas(contas);
+    this.contaRepository.escreverContas(contas);
     this.depositar(valor, contaRecebe.id);
 
     console.log('Transferencia realizada com sucesso!');
