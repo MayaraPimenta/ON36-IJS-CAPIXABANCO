@@ -1,30 +1,22 @@
-import { Body, Controller, Delete, Param, Patch, Post } from '@nestjs/common';
-import { Conta, TipoConta } from 'src/conta/conta.model';
-import { ContaService } from 'src/conta/conta.service';
+import { Body, Controller, Delete, Param, Post } from '@nestjs/common';
+import { ClienteService } from 'src/cliente/cliente.service';
+import { Cliente } from './models/cliente.model';
 
 @Controller('cliente')
 export class ClienteController {
-  constructor(private readonly contaService: ContaService) {}
+  constructor(private readonly clienteService: ClienteService) {}
 
-  @Post('conta')
-  criarConta(
-    @Body('saldo') saldo: number,
-    @Body('clienteId') clienteId: number,
-    @Body('tipo') tipo: TipoConta,
-  ): Conta {
-    return this.contaService.criarConta(saldo, clienteId, tipo);
+  @Post('criar')
+  criarCliente(
+    @Body('nome') nome: string,
+    @Body('endereco') endereco: string,
+    @Body('telefone') telefone: string,
+  ): Cliente {
+    return this.clienteService.criarCliente(nome, endereco, telefone);
   }
 
-  @Patch('conta/:id')
-  modificarTipoConta(
-    @Param('id') id: number,
-    @Body('tipo') novoTipo: TipoConta,
-  ): Conta {
-    return this.contaService.modificarTipoConta(id, novoTipo);
-  }
-
-  @Delete('conta/:id')
-  removerConta(@Param('id') id: number): void {
-    this.contaService.removerConta(id);
+  @Delete(':id')
+  removerCliente(@Param('id') id: number): void {
+    this.clienteService.removerCliente(id);
   }
 }

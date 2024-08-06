@@ -1,0 +1,154 @@
+{
+  "info": {
+    "name": "Capixabanco",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "bruno",
+      "event": []
+    },
+    {
+      "name": "cliente",
+      "item": [
+        {
+          "name": "atualizarTipoConta",
+          "event": [],
+          "request": {
+            "method": "PATCH",
+            "header": [],
+            "url": "http://localhost:3000/cliente/conta/3",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"tipo\": \"CORRENTE\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "criarConta",
+          "event": [],
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": "http://localhost:3000/cliente/conta",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"saldo\": 200,\n  \"tipo\": \"POUNPANCA\",\n  \"clienteId\": 2\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "removerConta",
+          "event": [],
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": "http://localhost:3000/cliente/conta/2"
+          }
+        }
+      ]
+    },
+    {
+      "name": "gerente",
+      "item": [
+        {
+          "name": "atualizarTipoContas",
+          "event": [],
+          "request": {
+            "method": "PATCH",
+            "header": [],
+            "url": "http://localhost:3000/gerente/conta/1",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"tipo\": \"CORRENTE\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "criarCliente",
+          "event": [],
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": "http://localhost:3000/gerente/cliente",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"nome\": \"Cliente 1\",\n  \"endereco\": \"Rua B, N2, Bairro Colinas\",\n  \"telefone\": \"9999-9999\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "criarConta",
+          "event": [],
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": "http://localhost:3000/gerente/conta",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"saldo\": 200,\n  \"tipo\": \"poupanca\",\n  \"clienteId\": 2\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "removerCliente",
+          "event": [],
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": "http://localhost:3000/gerente/cliente/1"
+          }
+        }
+      ]
+    },
+    {
+      "name": "conta",
+      "item": [
+        {
+          "name": "depositar",
+          "event": [],
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": "http://localhost:3000/conta/depositar/1",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"valor\": 100\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        }
+      ]
+    }
+  ],
+  "variable": []
+}
