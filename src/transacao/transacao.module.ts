@@ -1,7 +1,7 @@
 import { Module } from '@nestjs/common';
 import { TransacaoService } from './transacao.service';
 import { TransacaoController } from './transacao.controller';
-import { ContaRepository } from 'src/conta/conta.repository';
+import { ContaRepository } from '../conta/conta.repository';
 import { TransacaoRepository } from './transacao.repository';
 
 @Module({

@@ -1,6 +1,7 @@
 import { Body, Controller, Delete, Param, Post } from '@nestjs/common';
-import { ClienteService } from 'src/cliente/cliente.service';
+import { ClienteService } from '../cliente/cliente.service';
 import { Cliente } from './models/cliente.model';
+import { TextResponse } from '../types/global';
 
 @Controller('cliente')
 export class ClienteController {
@@ -16,7 +17,7 @@ export class ClienteController {
   }
 
   @Delete(':id')
-  removerCliente(@Param('id') id: number): void {
-    this.clienteService.removerCliente(id);
+  removerCliente(@Param('id') id: number): TextResponse {
+    return this.clienteService.removerCliente(id);
   }
 }

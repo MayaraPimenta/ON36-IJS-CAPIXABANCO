@@ -1,6 +1,6 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { Transacao, TipoTransacao } from './models/transacao.model';
-import { ContaRepository } from 'src/conta/conta.repository';
+import { ContaRepository } from '../conta/conta.repository';
 import { TransacaoRepository } from './transacao.repository';
 
 @Injectable()
