@@ -33,19 +33,5 @@
     "clienteId": 3,
     "tipo": "poupanca",
     "transacoes": []
-  },
-  {
-    "id": 6,
-    "saldo": 100,
-    "clienteId": 4,
-    "tipo": "poupanca",
-    "transacoes": []
-  },
-  {
-    "id": 7,
-    "saldo": 100,
-    "clienteId": 1,
-    "tipo": "corrente",
-    "transacoes": []
   }
 ]

@@ -37,8 +37,6 @@ describe('Client Controller', () => {
     const clientes = clienteRepository.lerClientes();
     const clienteId = clientes[clientes.length - 1].id;
 
-    console.log(clienteId);
-
     return request(app.getHttpServer())
       .delete(`/cliente/${clienteId}`)
       .expect(200)
@@ -52,7 +50,7 @@ describe('Client Controller', () => {
       .expect(404)
       .expect({
         statusCode: 404,
-        message: 'Cannot DELETE /123',
+        message: 'Conta não encontrada!',
         error: 'Not Found',
       });
   });

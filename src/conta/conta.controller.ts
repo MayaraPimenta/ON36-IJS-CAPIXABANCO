@@ -2,6 +2,7 @@ import { Controller, Post, Param, Body, Delete, Patch } from '@nestjs/common';
 import { ContaService } from './conta.service';
 import { Conta } from './models/conta.model';
 import { TipoConta } from './enum/TipoConta';
+import { TextResponse } from 'src/types/global';
 
 @Controller('conta')
 export class ContaController {
@@ -25,7 +26,7 @@ export class ContaController {
   }
 
   @Delete(':id')
-  removerConta(@Param('id') id: number): void {
-    this.contaService.removerConta(id);
+  removerConta(@Param('id') id: number): TextResponse {
+    return this.contaService.removerConta(id);
   }
 }
