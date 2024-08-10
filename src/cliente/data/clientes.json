@@ -96,5 +96,12 @@
     "endereco": "Rua X, N1",
     "telefone": "999899898",
     "contas": []
+  },
+  {
+    "nome": "Cliente 1",
+    "id": 16,
+    "endereco": "Rua X, N1",
+    "telefone": "999899897",
+    "contas": []
   }
 ]

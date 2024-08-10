@@ -4,6 +4,7 @@ import { ContaFactory } from './factories/ContaFactory';
 import { TipoConta } from './enum/TipoConta';
 import { ContaRepository } from './conta.repository';
 import { ClienteRepository } from '../cliente/cliente.repository';
+import { TextResponse } from '../types/global';
 
 @Injectable()
 export class ContaService {
@@ -48,11 +49,22 @@ export class ContaService {
     return conta;
   }
 
-  removerConta(id: number): void {
+  removerConta(id: number): TextResponse {
     const contas = this.contaRepository.lerContas();
     const contaIndex = contas.findIndex((conta) => conta.id === Number(id));
+
+    if (contaIndex === -1) {
+      throw new NotFoundException('Conta não encontrada!');
+    }
+
     contas.splice(contaIndex, 1);
     this.contaRepository.escreverContas(contas);
+
+    const contaEncontrada = contas.find((conta) => conta.id === id);
+    if (!contaEncontrada) {
+      return { message: 'Conta deletada com sucesso!' };
+    }
+    throw new Error('Algo deu errado, conta não removida.');
   }
 }
 //TODO: Inserir senha pra cliente e/ou gerente

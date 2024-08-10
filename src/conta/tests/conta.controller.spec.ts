@@ -1,18 +1,29 @@
+import { INestApplication } from '@nestjs/common';
 import { Test, TestingModule } from '@nestjs/testing';
-import { ContaController } from '../conta.controller';
+import { AppModule } from '../../app.module';
+import * as request from 'supertest';
+import { TipoConta } from '../enum/TipoConta';
 
-describe('ContaController', () => {
-  let controller: ContaController;
+describe('Client Controller', () => {
+  let app: INestApplication;
 
   beforeEach(async () => {
-    const module: TestingModule = await Test.createTestingModule({
-      controllers: [ContaController],
+    const moduleRef: TestingModule = await Test.createTestingModule({
+      imports: [AppModule],
     }).compile();
 
-    controller = module.get<ContaController>(ContaController);
+    app = moduleRef.createNestApplication();
+    await app.init();
   });
 
-  it('should be defined', () => {
-    expect(controller).toBeDefined();
+  test('Deve criar uma conta', () => {
+    return request(app.getHttpServer())
+      .post('/conta/criar')
+      .send({
+        saldo: 100,
+        clienteId: 1,
+        tipo: TipoConta.CORRENTE,
+      })
+      .expect(201);
   });
 });
