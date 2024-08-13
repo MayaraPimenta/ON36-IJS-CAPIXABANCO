@@ -1,18 +1,55 @@
+import { INestApplication } from '@nestjs/common';
 import { Test, TestingModule } from '@nestjs/testing';
-import { ContaController } from './conta.controller';
+import { AppModule } from '../../app.module';
+import * as request from 'supertest';
+import { TipoConta } from '../enum/TipoConta';
+import { ContaRepository } from '../conta.repository';
 
-describe('ContaController', () => {
-  let controller: ContaController;
+describe('Client Controller', () => {
+  let app: INestApplication;
 
   beforeEach(async () => {
-    const module: TestingModule = await Test.createTestingModule({
-      controllers: [ContaController],
+    const moduleRef: TestingModule = await Test.createTestingModule({
+      imports: [AppModule],
     }).compile();
 
-    controller = module.get<ContaController>(ContaController);
+    app = moduleRef.createNestApplication();
+    await app.init();
   });
 
-  it('should be defined', () => {
-    expect(controller).toBeDefined();
+  test('Deve criar uma conta', () => {
+    return request(app.getHttpServer())
+      .post('/conta/criar')
+      .send({
+        saldo: 100,
+        clienteId: 1,
+        tipo: TipoConta.CORRENTE,
+      })
+      .expect(201);
+  });
+
+  test('Deve modificar uma conta', () => {
+    const contaRepository = new ContaRepository();
+    const contas = contaRepository.lerContas();
+    const clienteId = contas[contas.length - 1].id;
+
+    return request(app.getHttpServer())
+      .patch(`/conta/${clienteId}`)
+      .send({
+        id: clienteId,
+        tipo: TipoConta.POUPANCA,
+      })
+      .expect(200);
+  });
+
+  test('Deve remover uma conta', () => {
+    const contaRepository = new ContaRepository();
+    const contas = contaRepository.lerContas();
+    const clienteId = contas[contas.length - 1].id;
+
+    return request(app.getHttpServer())
+      .delete(`/conta/${clienteId}`)
+      .expect(200)
+      .expect({ message: 'Conta deletada com sucesso!' });
   });
 });

@@ -1,4 +1,4 @@
-import { Transacao } from 'src/transacao/models/transacao.model';
+import { Transacao } from '../../transacao/models/transacao.model';
 import { TipoConta } from '../enum/TipoConta';
 export class Conta {
   transacoes: Transacao[] = [];

@@ -1,6 +1,6 @@
-import { Conta } from 'src/conta/models/conta.model';
-import { ContaPoupanca } from 'src/conta/models/contaPoupanca.model';
-import { ContaCorrente } from 'src/conta/models/contaCorrente.model';
+import { Conta } from '../models/conta.model';
+import { ContaPoupanca } from '../models/contaPoupanca.model';
+import { ContaCorrente } from '../models/contaCorrente.model';
 import { Injectable } from '@nestjs/common';
 import { TipoConta } from '../enum/TipoConta';
 
