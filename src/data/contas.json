@@ -1,0 +1,37 @@
+[
+  {
+    "id": 1,
+    "saldo": 250,
+    "clienteId": 3,
+    "tipo": "corrente",
+    "transacoes": []
+  },
+  {
+    "id": 2,
+    "saldo": 400,
+    "clienteId": 2,
+    "tipo": "corrente",
+    "transacoes": []
+  },
+  {
+    "id": 3,
+    "saldo": 100,
+    "clienteId": 2,
+    "tipo": "poupanca",
+    "transacoes": []
+  },
+  {
+    "id": 4,
+    "saldo": 100,
+    "clienteId": 2,
+    "tipo": "corrente",
+    "transacoes": []
+  },
+  {
+    "id": 5,
+    "saldo": 100,
+    "clienteId": 2,
+    "tipo": "corrente",
+    "transacoes": []
+  }
+]
