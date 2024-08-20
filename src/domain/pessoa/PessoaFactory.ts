@@ -2,12 +2,13 @@ import { Cliente } from '../cliente/cliente.model';
 import { TipoPessoa } from '../../domain/pessoa/TipoPessoa';
 import { Pessoa } from '../../domain/pessoa/pessoa.model';
 import { Gerente } from '../gerente/gerente.model';
+import { Iendereco } from '../cep/Iendereco';
 
 export class PessoaFactory extends Pessoa {
   criarPessoa(
     nome: string,
     id: number,
-    endereco: string,
+    endereco: Iendereco,
     telefone: string,
     tipo: TipoPessoa,
   ): Pessoa {

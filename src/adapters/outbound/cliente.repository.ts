@@ -3,6 +3,7 @@ import * as fs from 'fs';
 import { Cliente } from '../../domain/cliente/cliente.model';
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { TextResponse } from '../../types/global';
+import { Iendereco } from 'src/domain/cep/Iendereco';
 
 @Injectable()
 export class ClienteRepository {
@@ -19,7 +20,7 @@ export class ClienteRepository {
 
   public criarCliente(
     nome: string,
-    endereco: string,
+    endereco: Iendereco,
     telefone: string,
   ): Cliente {
     const clientes = this.lerClientes();

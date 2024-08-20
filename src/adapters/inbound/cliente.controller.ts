@@ -10,10 +10,10 @@ export class ClienteController {
   @Post('criar')
   criarCliente(
     @Body('nome') nome: string,
-    @Body('endereco') endereco: string,
+    @Body('cep') cep: string,
     @Body('telefone') telefone: string,
-  ): Cliente {
-    return this.clienteService.criarCliente(nome, endereco, telefone);
+  ): Promise<Cliente> {
+    return this.clienteService.criarCliente(nome, cep, telefone);
   }
 
   @Delete(':id')
