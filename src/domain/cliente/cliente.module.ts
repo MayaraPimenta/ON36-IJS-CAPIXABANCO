@@ -7,7 +7,7 @@ import { ClienteRepository } from '../../adapters/outbound/cliente.repository';
 import { ContaRepository } from '../../adapters/outbound/conta.repository';
 import { HttpModule } from '@nestjs/axios';
 import { CepModule } from '../cep/cep.module';
-import { CepAdapter } from '../cep/outbound/cep.adapter';
+import { CepAdapter } from '../../application/cep.adapter';
 
 @Module({
   imports: [HttpModule, CepModule],

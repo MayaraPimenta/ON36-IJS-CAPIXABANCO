@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { Iendereco } from '../Iendereco';
+import { Iendereco } from '../domain/cep/Iendereco';
 
 @Injectable()
 export class CepAdapter {

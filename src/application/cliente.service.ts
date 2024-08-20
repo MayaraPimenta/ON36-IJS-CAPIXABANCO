@@ -3,7 +3,7 @@ import { Cliente } from '../domain/cliente/cliente.model';
 import { ClienteRepository } from '../adapters/outbound/cliente.repository';
 import { TextResponse } from '../types/global';
 import { ViaCepApi } from '../adapters/outbound/viaCep.api';
-import { CepAdapter } from '../domain/cep/outbound/cep.adapter';
+import { CepAdapter } from './cep.adapter';
 
 @Injectable()
 export class ClienteService {
