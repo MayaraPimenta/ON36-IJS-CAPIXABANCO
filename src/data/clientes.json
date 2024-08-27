@@ -1,0 +1,196 @@
+[
+  {
+    "contas": [],
+    "nome": "Cliente 1",
+    "id": 1,
+    "endereco": "Rua B, N2, Bairro Colinas",
+    "telefone": "9999-9999"
+  },
+  {
+    "contas": [],
+    "nome": "Cliente 2",
+    "id": 2,
+    "endereco": "Rua B, N2, Bairro Colinas",
+    "telefone": "9999-9999"
+  },
+  {
+    "nome": "Cliente 1",
+    "id": 3,
+    "endereco": "Rua B, N2, Bairro Colinas",
+    "telefone": "9999-9999",
+    "contas": []
+  },
+  {
+    "nome": "Mayara",
+    "id": 4,
+    "endereco": "Rua B, N3",
+    "telefone": "99989998",
+    "contas": []
+  },
+  {
+    "nome": "Mayara",
+    "id": 5,
+    "endereco": "Rua B, N3",
+    "telefone": "99989998",
+    "contas": []
+  },
+  {
+    "nome": "Mayara",
+    "id": 6,
+    "endereco": "Rua B, N3",
+    "telefone": "99989998",
+    "contas": []
+  },
+  {
+    "nome": "Mayara",
+    "id": 7,
+    "endereco": "Rua B, N3",
+    "telefone": "99989998",
+    "contas": []
+  },
+  {
+    "nome": "Mayara",
+    "id": 8,
+    "endereco": "Rua B, N3",
+    "telefone": "99989998",
+    "contas": []
+  },
+  {
+    "nome": "Mayara",
+    "id": 9,
+    "endereco": "Rua B, N3",
+    "telefone": "99989998",
+    "contas": []
+  },
+  {
+    "nome": "Mayara",
+    "id": 10,
+    "endereco": "Rua B, N3",
+    "telefone": "99989998",
+    "contas": []
+  },
+  {
+    "nome": "Mayara",
+    "id": 11,
+    "endereco": "Rua B, N3",
+    "telefone": "99989998",
+    "contas": []
+  },
+  {
+    "nome": "Mayara",
+    "id": 12,
+    "endereco": "Rua B, N3",
+    "telefone": "99989998",
+    "contas": []
+  },
+  {
+    "nome": "Mayara",
+    "id": 14,
+    "endereco": "Rua B, N3",
+    "telefone": "99989998",
+    "contas": []
+  },
+  {
+    "nome": "Cliente 1",
+    "id": 16,
+    "endereco": "Rua X, N1",
+    "telefone": "999899897",
+    "contas": []
+  },
+  {
+    "nome": "Mayara",
+    "id": 17,
+    "endereco": "Rua B, N3",
+    "telefone": "99989998",
+    "contas": []
+  },
+  {
+    "nome": "Mayara",
+    "id": 18,
+    "endereco": "Rua B, N3",
+    "telefone": "99989998",
+    "contas": []
+  },
+  {
+    "nome": "cliente x",
+    "id": 19,
+    "endereco": "29167168",
+    "telefone": "99998888",
+    "contas": []
+  },
+  {
+    "nome": "cliente a",
+    "id": 20,
+    "endereco": "29167168",
+    "telefone": "99998888",
+    "contas": []
+  },
+  {
+    "nome": "cliente b",
+    "id": 21,
+    "endereco": "29167168",
+    "telefone": "99998888",
+    "contas": []
+  },
+  {
+    "nome": "cliente c",
+    "id": 22,
+    "endereco": "29167168",
+    "telefone": "99998888",
+    "contas": []
+  },
+  {
+    "nome": "cliente",
+    "id": 23,
+    "endereco": "Rua A, N1",
+    "telefone": "99998888",
+    "contas": []
+  },
+  {
+    "nome": "cliente",
+    "id": 24,
+    "endereco": "Rua A, N1",
+    "telefone": "99998888",
+    "contas": []
+  },
+  {
+    "nome": "cliente",
+    "id": 25,
+    "endereco": "Rua A, N1",
+    "telefone": "99998888",
+    "contas": []
+  },
+  {
+    "nome": "cliente",
+    "id": 26,
+    "endereco": "Rua A, N1",
+    "telefone": "99998888",
+    "contas": []
+  },
+  {
+    "nome": "cliente",
+    "id": 27,
+    "endereco": {
+      "cep": "29167-168",
+      "rua": "Rua Dom Pedro II",
+      "bairro": "Colina de Laranjeiras",
+      "cidade": "Serra",
+      "estado": "ES"
+    },
+    "telefone": "99998888",
+    "contas": []
+  },
+  {
+    "nome": "cliente",
+    "id": 28,
+    "endereco": {
+      "cep": "29166-047",
+      "rua": "Rua Candeias",
+      "bairro": "Barcelona",
+      "cidade": "Serra",
+      "estado": "ES"
+    },
+    "telefone": "99998888",
+    "contas": []
+  }
+]
