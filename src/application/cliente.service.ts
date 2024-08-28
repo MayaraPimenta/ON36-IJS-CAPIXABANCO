@@ -1,8 +1,8 @@
 import { Injectable } from '@nestjs/common';
 import { Cliente } from '../domain/cliente/cliente.model';
-import { ClienteRepository } from '../adapters/outbound/cliente.repository';
+import { ClienteRepository } from '../infrastructure/persistence/cliente.repository';
 import { TextResponse } from '../types/global';
-import { ViaCepApi } from '../adapters/outbound/viaCep.api';
+import { ViaCepApi } from '../infrastructure/api/viaCep.api';
 import { CepAdapter } from './cep.adapter';
 
 @Injectable()

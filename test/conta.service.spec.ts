@@ -1,7 +1,7 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { ContaService } from '../src/application/conta.service';
-import { ContaRepository } from '../src/adapters/outbound/conta.repository';
-import { ClienteRepository } from '../src/adapters/outbound/cliente.repository';
+import { ContaRepository } from '../src/infrastructure/persistence/conta.repository';
+import { ClienteRepository } from '../src/infrastructure/persistence/cliente.repository';
 import { ContaFactory } from '../src/domain/conta/ContaFactory';
 import { TipoConta } from '../src/domain/conta/TipoConta';
 import { Conta } from '../src/domain/conta/conta.model';

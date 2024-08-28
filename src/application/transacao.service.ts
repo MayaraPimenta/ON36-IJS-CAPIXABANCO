@@ -1,7 +1,7 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { Transacao, TipoTransacao } from '../domain/transacao/transacao.model';
-import { ContaRepository } from '../adapters/outbound/conta.repository';
-import { TransacaoRepository } from '../adapters/outbound/transacao.repository';
+import { ContaRepository } from '../infrastructure/persistence/conta.repository';
+import { TransacaoRepository } from '../infrastructure/persistence/transacao.repository';
 
 @Injectable()
 export class TransacaoService {

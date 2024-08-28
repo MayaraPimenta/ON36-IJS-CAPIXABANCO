@@ -1,8 +1,8 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { Conta } from '../domain/conta/conta.model';
 import { TipoConta } from '../domain/conta/TipoConta';
-import { ContaRepository } from '../adapters/outbound/conta.repository';
-import { ClienteRepository } from '../adapters/outbound/cliente.repository';
+import { ContaRepository } from '../infrastructure/persistence/conta.repository';
+import { ClienteRepository } from '../infrastructure/persistence/cliente.repository';
 import { TextResponse } from '../types/global';
 
 @Injectable()
