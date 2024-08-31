@@ -4,8 +4,10 @@ import { ContaService } from '../../application/conta.service';
 import { ContaFactory } from './ContaFactory';
 import { Transacao } from '../transacao/transacao.model';
 import { Conta } from './conta.model';
-import { ContaRepository } from '../../infrastructure/persistence/conta.repository';
+import { ContaRepository } from '../../infrastructure/persistence/conta/conta.repository';
 import { ClienteRepository } from '../../infrastructure/persistence/cliente.repository';
+import { contaProviders } from 'src/infrastructure/persistence/conta/conta.providers';
+import { databaseProviders } from 'src/db/db.providers';
 
 @Module({
   controllers: [ContaController],
@@ -16,6 +18,8 @@ import { ClienteRepository } from '../../infrastructure/persistence/cliente.repo
     Conta,
     ClienteRepository,
     ContaRepository,
+    ...contaProviders,
+    ...databaseProviders,
   ],
   exports: [ContaRepository],
 })

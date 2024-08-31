@@ -13,8 +13,8 @@ export class ContaController {
     @Body('saldo') saldo: number,
     @Body('clienteId') clienteId: number,
     @Body('tipo') tipo: TipoConta,
-  ): Conta {
-    return this.contaService.criarConta(saldo, clienteId, tipo);
+  ): void {
+    this.contaService.criarConta(saldo, clienteId, tipo);
   }
 
   @Patch(':id')

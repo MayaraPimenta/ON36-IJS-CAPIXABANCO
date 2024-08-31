@@ -2,9 +2,9 @@ import { Transacao } from '../transacao/transacao.model';
 import { TipoConta } from './TipoConta';
 export class Conta {
   transacoes: Transacao[] = [];
+  id: number;
 
   constructor(
-    public id: number,
     public saldo: number,
     public clienteId: number,
     public tipo: TipoConta,

@@ -1,18 +1,25 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import { Inject, Injectable, NotFoundException } from '@nestjs/common';
 import { Conta } from '../domain/conta/conta.model';
 import { TipoConta } from '../domain/conta/TipoConta';
-import { ContaRepository } from '../infrastructure/persistence/conta.repository';
+import { ContaRepository } from '../infrastructure/persistence/conta/conta.repository';
 import { ClienteRepository } from '../infrastructure/persistence/cliente.repository';
 import { TextResponse } from '../types/global';
+import { Repository } from 'typeorm';
 
 @Injectable()
 export class ContaService {
   constructor(
     private readonly contaRepository: ContaRepository,
     private readonly clienteRepository: ClienteRepository,
+    @Inject('CONTA_REPOSITORY')
+    private contasRepository: Repository<Conta>,
   ) {}
 
-  criarConta(saldo: number, clienteId: number, tipo: TipoConta): Conta {
+  async criarConta(
+    saldo: number,
+    clienteId: number,
+    tipo: TipoConta,
+  ): Promise<Conta> {
     const cliente = this.clienteRepository.getClienteById(clienteId);
     if (!cliente) {
       throw new NotFoundException(
@@ -20,7 +27,10 @@ export class ContaService {
       );
     }
 
-    return this.contaRepository.criarConta(saldo, clienteId, tipo);
+    const conta = new Conta(saldo, clienteId, tipo);
+
+    console.log('alo');
+    return this.contasRepository.save(conta);
   }
 
   modificarTipoConta(id: number, tipo: TipoConta): Conta {
