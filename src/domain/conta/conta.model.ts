@@ -6,7 +6,7 @@ export class Conta {
 
   constructor(
     public saldo: number,
-    public clienteId: number,
+    public clienteId: string,
     public tipo: TipoConta,
   ) {}
 }

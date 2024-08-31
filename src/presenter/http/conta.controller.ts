@@ -10,7 +10,7 @@ export class ContaController {
   @Post('criar')
   criarConta(
     @Body('saldo') saldo: number,
-    @Body('clienteId') clienteId: number,
+    @Body('clienteId') clienteId: string,
     @Body('tipo') tipo: TipoConta,
   ): Promise<Conta> {
     return this.contaService.criarConta(saldo, clienteId, tipo);

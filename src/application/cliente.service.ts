@@ -1,7 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { Cliente } from '../domain/cliente/cliente.model';
-import { ClienteRepository } from '../infrastructure/persistence/cliente.repository';
-import { TextResponse } from '../types/global';
+import { ClienteRepository } from '../infrastructure/persistence/cliente/cliente.repository';
 import { ViaCepApi } from '../infrastructure/api/viaCep.api';
 import { CepAdapter } from './cep.adapter';
 
@@ -13,18 +12,16 @@ export class ClienteService {
     private readonly cepAdapter: CepAdapter,
   ) {}
 
-  async criarCliente(
-    nome: string,
-    cep: string,
-    telefone: string,
-  ): Promise<Cliente> {
+  async criar(nome: string, cep: string, telefone: string): Promise<Cliente> {
     const viaCep = await this.viaCepApi.buscarEndereco(cep);
     const endereco = this.cepAdapter.adaptaCep(viaCep);
+    //transformar chamada a cep em interceptor
 
-    return this.clienteRepository.criarCliente(nome, endereco, telefone);
+    const cliente = new Cliente(nome, endereco, telefone);
+    return this.clienteRepository.salvar(cliente);
   }
 
-  removerCliente(id: number): TextResponse {
-    return this.clienteRepository.removerCliente(id);
+  removerCliente(id: string): void {
+    this.clienteRepository.removerCliente(id);
   }
 }

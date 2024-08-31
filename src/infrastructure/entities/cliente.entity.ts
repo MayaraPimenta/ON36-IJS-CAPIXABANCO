@@ -3,8 +3,8 @@ import { Conta } from './conta.entity';
 
 @Entity('cliente')
 export class Cliente {
-  @PrimaryGeneratedColumn()
-  id: number;
+  @PrimaryGeneratedColumn('uuid')
+  id: string;
 
   @Column('text')
   nome: string;

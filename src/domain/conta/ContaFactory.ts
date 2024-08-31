@@ -6,7 +6,7 @@ import { TipoConta } from './TipoConta';
 
 @Injectable()
 export class ContaFactory {
-  criarConta(saldo: number, clienteId: number, tipo: TipoConta): Conta {
+  criarConta(saldo: number, clienteId: string, tipo: TipoConta): Conta {
     switch (tipo) {
       case TipoConta.CORRENTE:
         return new ContaCorrente(saldo, clienteId, tipo);

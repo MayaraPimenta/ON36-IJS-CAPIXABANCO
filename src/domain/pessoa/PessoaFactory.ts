@@ -7,16 +7,15 @@ import { Iendereco } from '../cep/Iendereco';
 export class PessoaFactory extends Pessoa {
   criarPessoa(
     nome: string,
-    id: number,
     endereco: Iendereco,
     telefone: string,
     tipo: TipoPessoa,
   ): Pessoa {
     switch (tipo) {
       case TipoPessoa.CLIENTE:
-        return new Cliente(nome, id, endereco, telefone);
+        return new Cliente(nome, endereco, telefone);
       case TipoPessoa.GERENTE:
-        return new Gerente(nome, id, endereco, telefone);
+        return new Gerente(nome, endereco, telefone);
       default:
         throw new Error('Tipo de conta inválido');
     }

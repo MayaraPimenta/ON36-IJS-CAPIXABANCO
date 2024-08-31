@@ -4,7 +4,7 @@ import { TipoConta } from './TipoConta';
 export class ContaCorrente extends Conta {
   limiteChequeEspecial: number;
 
-  constructor(saldo: number, clienteId: number, tipo: TipoConta) {
+  constructor(saldo: number, clienteId: string, tipo: TipoConta) {
     super(saldo, clienteId, tipo);
   }
 }

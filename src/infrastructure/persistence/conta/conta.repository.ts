@@ -20,12 +20,10 @@ export class ContaRepository extends Repository<Conta> {
 
   // remover - start
   readonly filePath = path.resolve('src/data/contas.json');
-
   lerContas(): Conta[] {
     const data = fs.readFileSync(this.filePath, 'utf8');
     return JSON.parse(data) as Conta[];
   }
-
   escreverContas(contas: Conta[]): void {
     fs.writeFileSync(this.filePath, JSON.stringify(contas, null, 2), 'utf8');
   }
