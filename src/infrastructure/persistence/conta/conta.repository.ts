@@ -1,13 +1,24 @@
+import { Conta } from '../../../domain/conta/conta.model';
+import { Inject, Injectable } from '@nestjs/common';
+import { TipoConta } from 'src/domain/conta/TipoConta';
+import { Repository } from 'typeorm';
 import * as path from 'path';
 import * as fs from 'fs';
-import { Conta } from '../../../domain/conta/conta.model';
-import { Injectable } from '@nestjs/common';
-import { ContaFactory } from '../../../domain/conta/ContaFactory';
-import { TipoConta } from 'src/domain/conta/TipoConta';
 
 @Injectable()
-export class ContaRepository {
-  constructor(private readonly contaFactory: ContaFactory) {}
+export class ContaRepository extends Repository<Conta> {
+  constructor(
+    @Inject('CONTA_REPOSITORY')
+    private contaRepository: Repository<Conta>,
+  ) {
+    super(
+      contaRepository.target,
+      contaRepository.manager,
+      contaRepository.queryRunner,
+    );
+  }
+
+  // remover - start
   readonly filePath = path.resolve('src/data/contas.json');
 
   lerContas(): Conta[] {
@@ -18,37 +29,24 @@ export class ContaRepository {
   escreverContas(contas: Conta[]): void {
     fs.writeFileSync(this.filePath, JSON.stringify(contas, null, 2), 'utf8');
   }
+  // remover - end
 
-  criarConta(saldo: number, clienteId: number, tipo: TipoConta): Conta {
-    const contas = this.lerContas();
-    const novaConta = this.contaFactory.criarConta(saldo, clienteId, tipo);
+  async salvar(conta: Conta): Promise<Conta> {
+    await this.contaRepository.save(conta);
 
-    contas.push(novaConta);
-    this.escreverContas(contas);
-    return novaConta;
+    return conta;
   }
 
-  modificarTipoConta(id: number, tipo: TipoConta): Conta {
-    const contas = this.lerContas();
-    const conta = contas.find((conta) => conta.id === Number(id));
-
+  async modificarTipoConta(id: string, tipo: TipoConta): Promise<Conta> {
+    const conta = await this.contaRepository.findOneBy({ id: id });
     conta.tipo = tipo;
-    this.escreverContas(contas);
+    await this.contaRepository.save(conta);
+
     return conta;
   }
 
-  removerConta(id: number): void {
-    const contas = this.lerContas();
-    const contaIndex = contas.findIndex((conta) => conta.id === Number(id));
-
-    contas.splice(contaIndex, 1);
-    this.escreverContas(contas);
-  }
-
-  getContaById(id: number): Conta {
-    const contas = this.lerContas();
-    const conta = contas.find((conta) => conta.id === Number(id));
-
-    return conta;
+  async remover(id: string): Promise<void> {
+    const conta = await this.contaRepository.findOneBy({ id: id });
+    await this.contaRepository.remove(conta);
   }
 }

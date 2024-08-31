@@ -10,10 +10,10 @@ export class TransacaoService {
     private readonly transacaoRepository: TransacaoRepository,
   ) {}
 
-  depositar(valor: number, contaId: number): Transacao {
+  depositar(valor: number, contaId: string): Transacao {
     //confere se conta existe - getContaById
     const contas = this.contaRepository.lerContas();
-    const conta = contas.find((conta) => conta.id === Number(contaId));
+    const conta = contas.find((conta) => conta.id === contaId);
 
     if (!conta) {
       throw new NotFoundException('Conta não encontrada!');
@@ -39,9 +39,9 @@ export class TransacaoService {
     return transacao;
   }
 
-  sacar(valor: number, contaId: number): Transacao | null {
+  sacar(valor: number, contaId: string): Transacao | null {
     const contas = this.contaRepository.lerContas();
-    const conta = contas.find((conta) => conta.id === Number(contaId));
+    const conta = contas.find((conta) => conta.id === contaId);
 
     if (conta.saldo <= valor) {
       console.log(`Saldo insuficiente! Saldo atual: R$${conta.saldo}`);
@@ -68,14 +68,12 @@ export class TransacaoService {
 
   transferir(
     valor: number,
-    contaId: number,
-    contaDestinoId: number,
+    contaId: string,
+    contaDestinoId: string,
   ): Transacao | null {
     const contas = this.contaRepository.lerContas();
-    const contaEnvia = contas.find((conta) => conta.id === Number(contaId));
-    const contaRecebe = contas.find(
-      (conta) => conta.id === Number(contaDestinoId),
-    );
+    const contaEnvia = contas.find((conta) => conta.id === contaId);
+    const contaRecebe = contas.find((conta) => conta.id === contaDestinoId);
 
     console.log(contaEnvia, contaRecebe);
 

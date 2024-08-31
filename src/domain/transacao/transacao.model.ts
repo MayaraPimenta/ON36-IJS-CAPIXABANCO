@@ -9,7 +9,7 @@ export class Transacao {
     public id: number,
     public valor: number,
     public dateTime: Date,
-    public contaId: number,
+    public contaId: string,
     public tipo: TipoTransacao,
   ) {}
 }

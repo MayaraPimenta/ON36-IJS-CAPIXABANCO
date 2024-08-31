@@ -11,8 +11,8 @@ import { Cliente } from './cliente.entity';
 
 @Entity('conta')
 export class Conta {
-  @PrimaryGeneratedColumn()
-  id: number;
+  @PrimaryGeneratedColumn('uuid')
+  id: string;
 
   @Column('int')
   saldo: number;

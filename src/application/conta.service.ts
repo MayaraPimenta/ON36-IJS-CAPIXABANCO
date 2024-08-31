@@ -1,18 +1,14 @@
-import { Inject, Injectable, NotFoundException } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { Conta } from '../domain/conta/conta.model';
 import { TipoConta } from '../domain/conta/TipoConta';
 import { ContaRepository } from '../infrastructure/persistence/conta/conta.repository';
 import { ClienteRepository } from '../infrastructure/persistence/cliente.repository';
-import { TextResponse } from '../types/global';
-import { Repository } from 'typeorm';
 
 @Injectable()
 export class ContaService {
   constructor(
     private readonly contaRepository: ContaRepository,
     private readonly clienteRepository: ClienteRepository,
-    @Inject('CONTA_REPOSITORY')
-    private contasRepository: Repository<Conta>,
   ) {}
 
   async criarConta(
@@ -29,32 +25,15 @@ export class ContaService {
 
     const conta = new Conta(saldo, clienteId, tipo);
 
-    console.log('alo');
-    return this.contasRepository.save(conta);
+    return this.contaRepository.salvar(conta);
   }
 
-  modificarTipoConta(id: number, tipo: TipoConta): Conta {
-    const conta = this.contaRepository.getContaById(id);
-
-    if (!conta) {
-      throw new NotFoundException('Conta não encontrada!');
-    }
-
+  modificarTipoConta(id: string, tipo: TipoConta): Promise<Conta> {
     return this.contaRepository.modificarTipoConta(id, tipo);
   }
 
-  removerConta(id: number): TextResponse {
-    const conta = this.contaRepository.getContaById(id);
-    if (!conta) {
-      throw new NotFoundException('Conta não encontrada!');
-    }
-
-    this.contaRepository.removerConta(id);
-    const contaRemovida = this.contaRepository.getContaById(id);
-    if (contaRemovida) {
-      throw new Error('Algo deu errado, conta não removida.');
-    }
-    return { message: 'Conta deletada com sucesso!' };
+  removerConta(id: string): void {
+    this.contaRepository.remover(id);
   }
 }
 //TODO: Inserir senha pra cliente e/ou gerente

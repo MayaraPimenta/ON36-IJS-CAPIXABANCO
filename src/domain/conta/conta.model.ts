@@ -2,7 +2,7 @@ import { Transacao } from '../transacao/transacao.model';
 import { TipoConta } from './TipoConta';
 export class Conta {
   transacoes: Transacao[] = [];
-  id: number;
+  id: string;
 
   constructor(
     public saldo: number,

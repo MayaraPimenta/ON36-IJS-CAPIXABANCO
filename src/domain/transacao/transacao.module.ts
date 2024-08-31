@@ -4,6 +4,8 @@ import { TransacaoController } from '../../presenter/http/transacao.controller';
 import { ContaRepository } from '../../infrastructure/persistence/conta/conta.repository';
 import { TransacaoRepository } from '../../infrastructure/persistence/transacao.repository';
 import { ContaFactory } from '../conta/ContaFactory';
+import { contaProviders } from 'src/infrastructure/persistence/conta/conta.providers';
+import { databaseProviders } from 'src/db/db.providers';
 
 @Module({
   providers: [
@@ -11,6 +13,8 @@ import { ContaFactory } from '../conta/ContaFactory';
     ContaRepository,
     TransacaoRepository,
     ContaFactory,
+    ...contaProviders,
+    ...databaseProviders,
   ],
   controllers: [TransacaoController],
 })
