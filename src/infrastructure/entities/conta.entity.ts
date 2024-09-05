@@ -24,6 +24,9 @@ export class Conta {
   })
   tipo: TipoConta;
 
+  @Column('uuid')
+  clienteId: string;
+
   @OneToMany(() => Transacao, (transacao) => transacao.conta)
   transacoes: Transacao[];
 

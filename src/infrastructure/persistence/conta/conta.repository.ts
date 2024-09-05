@@ -1,7 +1,12 @@
 import { Conta } from '../../../domain/conta/conta.model';
-import { Inject, Injectable } from '@nestjs/common';
+import {
+  BadRequestException,
+  Inject,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
 import { TipoConta } from 'src/domain/conta/TipoConta';
-import { Repository } from 'typeorm';
+import { QueryFailedError, Repository } from 'typeorm';
 import * as path from 'path';
 import * as fs from 'fs';
 
@@ -30,21 +35,47 @@ export class ContaRepository extends Repository<Conta> {
   // remover - end
 
   async salvar(conta: Conta): Promise<Conta> {
-    await this.contaRepository.save(conta);
+    try {
+      const cliente = await this.contaRepository.findOneBy({
+        id: conta.clienteId,
+      });
+      if (!cliente) {
+        throw new NotFoundException('Cliente não encontrado');
+      }
 
-    return conta;
+      const novaConta = await this.contaRepository.save(conta);
+      return novaConta;
+    } catch (error) {
+      throw error;
+    }
   }
 
-  async modificarTipoConta(id: string, tipo: TipoConta): Promise<Conta> {
-    const conta = await this.contaRepository.findOneBy({ id: id });
-    conta.tipo = tipo;
-    await this.contaRepository.save(conta);
+  async updateTipoConta(id: string, tipo: TipoConta): Promise<Conta> {
+    try {
+      const conta = await this.contaRepository.findOneBy({ id: id });
+      if (!conta) {
+        throw new NotFoundException('Conta não encontrada');
+      }
 
-    return conta;
+      conta.tipo = tipo;
+      await this.contaRepository.save(conta);
+
+      return conta;
+    } catch (error) {
+      if (error instanceof QueryFailedError) {
+        throw new BadRequestException('Formato de ID inválido');
+      }
+      throw error;
+    }
   }
 
   async remover(id: string): Promise<void> {
     const conta = await this.contaRepository.findOneBy({ id: id });
     await this.contaRepository.remove(conta);
+  }
+
+  async contas(): Promise<Conta[]> {
+    const contas = await this.contaRepository.find();
+    return contas;
   }
 }

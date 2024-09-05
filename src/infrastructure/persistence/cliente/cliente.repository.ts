@@ -1,5 +1,5 @@
 import { Cliente } from '../../../domain/cliente/cliente.model';
-import { Inject, Injectable } from '@nestjs/common';
+import { Inject, Injectable, NotFoundException } from '@nestjs/common';
 import { Repository } from 'typeorm';
 
 @Injectable()
@@ -17,13 +17,18 @@ export class ClienteRepository extends Repository<Cliente> {
 
   async getCliente(id: string): Promise<Cliente> {
     const cliente = await this.clienteRepository.findOneBy({ id: id });
+
+    if (!cliente) {
+      throw new NotFoundException('Cliente não encontrado');
+    }
+
     return cliente;
   }
 
   async salvar(cliente): Promise<Cliente> {
-    await this.clienteRepository.save(cliente);
+    const novoCliente = await this.clienteRepository.save(cliente);
 
-    return cliente;
+    return novoCliente;
   }
 
   async removerCliente(id: string): Promise<void> {

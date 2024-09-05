@@ -1,6 +1,5 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { Conta } from '../domain/conta/conta.model';
-import { TipoConta } from '../domain/conta/TipoConta';
 import { ContaRepository } from '../infrastructure/persistence/conta/conta.repository';
 import { ClienteRepository } from '../infrastructure/persistence/cliente/cliente.repository';
 
@@ -11,25 +10,28 @@ export class ContaService {
     private readonly clienteRepository: ClienteRepository,
   ) {}
 
-  async criarConta(
-    saldo: number,
-    clienteId: string,
-    tipo: TipoConta,
-  ): Promise<Conta> {
-    const cliente = this.clienteRepository.getCliente(clienteId);
+  async criar(criarContaDto): Promise<Conta> {
+    const cliente = this.clienteRepository.getCliente(criarContaDto.clienteId);
     if (!cliente) {
       throw new NotFoundException(
         'Cliente não encontrado! A conta deve estar atrelada a um cliente existente',
       );
     }
 
-    const conta = new Conta(saldo, clienteId, tipo);
+    const conta = new Conta(
+      criarContaDto.saldo,
+      criarContaDto.clienteId,
+      criarContaDto.tipo,
+    );
 
     return this.contaRepository.salvar(conta);
   }
 
-  modificarTipoConta(id: string, tipo: TipoConta): Promise<Conta> {
-    return this.contaRepository.modificarTipoConta(id, tipo);
+  updateTipoConta(updateContaDto): Promise<Conta> {
+    return this.contaRepository.updateTipoConta(
+      updateContaDto.id,
+      updateContaDto.tipo,
+    );
   }
 
   removerConta(id: string): void {

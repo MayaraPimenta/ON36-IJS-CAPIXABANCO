@@ -1,27 +1,21 @@
 import { Controller, Post, Param, Body, Delete, Patch } from '@nestjs/common';
 import { ContaService } from '../../application/conta.service';
 import { Conta } from '../../domain/conta/conta.model';
-import { TipoConta } from '../../domain/conta/TipoConta';
+import { CriarContaDto } from '../dto/conta/criar-conta-dto/criar-conta-dto';
+import { UpdateContaDto } from '../dto/conta/update-conta-dto/update-conta-dto';
 
 @Controller('conta')
 export class ContaController {
   constructor(private readonly contaService: ContaService) {}
 
   @Post('criar')
-  criarConta(
-    @Body('saldo') saldo: number,
-    @Body('clienteId') clienteId: string,
-    @Body('tipo') tipo: TipoConta,
-  ): Promise<Conta> {
-    return this.contaService.criarConta(saldo, clienteId, tipo);
+  criarConta(@Body() criarContaDto: CriarContaDto): Promise<Conta> {
+    return this.contaService.criar(criarContaDto);
   }
 
   @Patch(':id')
-  modificarTipoConta(
-    @Param('id') id: string,
-    @Body('tipo') novoTipo: TipoConta,
-  ): Promise<Conta> {
-    return this.contaService.modificarTipoConta(id, novoTipo);
+  modificarTipoConta(@Body() updateContaDto: UpdateContaDto): Promise<Conta> {
+    return this.contaService.updateTipoConta(updateContaDto);
   }
 
   @Delete(':id')

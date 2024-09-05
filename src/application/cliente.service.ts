@@ -12,12 +12,16 @@ export class ClienteService {
     private readonly cepAdapter: CepAdapter,
   ) {}
 
-  async criar(nome: string, cep: string, telefone: string): Promise<Cliente> {
-    const viaCep = await this.viaCepApi.buscarEndereco(cep);
+  async criar(criarClienteDto): Promise<Cliente> {
+    const viaCep = await this.viaCepApi.buscarEndereco(criarClienteDto.cep);
     const endereco = this.cepAdapter.adaptaCep(viaCep);
     //transformar chamada a cep em interceptor
 
-    const cliente = new Cliente(nome, endereco, telefone);
+    const cliente = new Cliente(
+      criarClienteDto.nome,
+      endereco,
+      criarClienteDto.telefone,
+    );
     return this.clienteRepository.salvar(cliente);
   }
 

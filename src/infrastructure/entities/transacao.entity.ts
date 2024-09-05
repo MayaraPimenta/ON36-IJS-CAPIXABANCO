@@ -20,6 +20,9 @@ export class Transacao {
   })
   tipo: TipoTransacao;
 
+  @Column('uuid')
+  contaId: string;
+
   @ManyToOne(() => Conta, (conta) => conta.transacoes)
   conta: Conta;
 }
