@@ -74,8 +74,13 @@ export class ContaRepository extends Repository<Conta> {
     await this.contaRepository.remove(conta);
   }
 
-  async contas(): Promise<Conta[]> {
+  async getContas(): Promise<Conta[]> {
     const contas = await this.contaRepository.find();
     return contas;
+  }
+
+  async getConta(id): Promise<Conta> {
+    const conta = await this.contaRepository.findOneBy({ id: id });
+    return conta;
   }
 }

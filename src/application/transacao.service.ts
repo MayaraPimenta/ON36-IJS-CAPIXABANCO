@@ -1,7 +1,8 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
-import { Transacao, TipoTransacao } from '../domain/transacao/transacao.model';
+import { Transacao } from '../domain/transacao/transacao.model';
 import { ContaRepository } from '../infrastructure/persistence/conta/conta.repository';
 import { TransacaoRepository } from '../infrastructure/persistence/transacao.repository';
+import { TipoTransacao } from 'src/domain/transacao/TipoTransacao';
 
 @Injectable()
 export class TransacaoService {
@@ -22,7 +23,6 @@ export class TransacaoService {
 
     const transacoes = this.transacaoRepository.lerTransacoes();
     const transacao = new Transacao(
-      transacoes.length + 1,
       valor,
       new Date(),
       contaId,
@@ -51,7 +51,6 @@ export class TransacaoService {
 
     const transacoes = this.transacaoRepository.lerTransacoes();
     const transacao = new Transacao(
-      transacoes.length + 1,
       valor,
       new Date(),
       contaId,
@@ -91,7 +90,6 @@ export class TransacaoService {
 
     const transacoes = this.transacaoRepository.lerTransacoes();
     const transacao = new Transacao(
-      transacoes.length + 1,
       valor,
       new Date(),
       contaId,
@@ -105,5 +103,9 @@ export class TransacaoService {
     console.log('Transferencia realizada com sucesso!');
 
     return transacao;
+  }
+
+  salvar(transacao: Transacao) {
+    console.log(transacao);
   }
 }

@@ -1,6 +1,6 @@
 import { Transacao } from '../transacao/transacao.model';
 import { TipoConta } from './TipoConta';
-export class Conta {
+export abstract class Conta {
   transacoes: Transacao[] = [];
   id: string;
 
@@ -9,5 +9,6 @@ export class Conta {
     public clienteId: string,
     public tipo: TipoConta,
   ) {}
+
+  abstract sacar(valor: number): void;
 }
-//TODO: Adicionar metodos especificos de contaCorrente e contaPoupanca
