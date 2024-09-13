@@ -1,5 +1,5 @@
 import { Module } from '@nestjs/common';
-import { GerenteController } from '../../adapters/inbound/gerente.controller';
+import { GerenteController } from '../../presenter/http/gerente.controller';
 import { GerenteService } from '../../application/gerente.service';
 
 @Module({

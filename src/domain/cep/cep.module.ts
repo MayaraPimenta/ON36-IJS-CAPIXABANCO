@@ -1,6 +1,6 @@
 import { Module } from '@nestjs/common';
 import { HttpModule } from '@nestjs/axios';
-import { ViaCepApi } from 'src/adapters/outbound/viaCep.api';
+import { ViaCepApi } from 'src/infrastructure/api/viaCep.api';
 
 @Module({
   imports: [HttpModule],

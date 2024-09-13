@@ -3,7 +3,7 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { AppModule } from '../src/app.module';
 import * as request from 'supertest';
 import { TipoConta } from '../src/domain/conta/TipoConta';
-import { ContaRepository } from '../src/adapters/outbound/conta.repository';
+import { ContaRepository } from '../src/infrastructure/persistence/conta.repository';
 
 describe('Client Controller', () => {
   let app: INestApplication;

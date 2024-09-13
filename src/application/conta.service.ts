@@ -1,50 +1,65 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { Conta } from '../domain/conta/conta.model';
-import { TipoConta } from '../domain/conta/TipoConta';
-import { ContaRepository } from '../adapters/outbound/conta.repository';
-import { ClienteRepository } from '../adapters/outbound/cliente.repository';
-import { TextResponse } from '../types/global';
+import { ContaRepository } from '../infrastructure/persistence/conta/conta.repository';
+import { ClienteRepository } from '../infrastructure/persistence/cliente/cliente.repository';
+import { ContaFactory } from '../domain/conta/ContaFactory';
+import { ContaCorrenteStrategy } from '../domain/conta/strategy/ContaCorrenteStrategy';
+import { ContaPoupancaStrategy } from '../domain/conta/strategy/ContaPoupancaStrategy';
+import { ContaCorrente } from 'src/domain/conta/contaCorrente.model';
+import { ContaPoupanca } from 'src/domain/conta/contaPoupanca.model';
 
 @Injectable()
 export class ContaService {
   constructor(
     private readonly contaRepository: ContaRepository,
     private readonly clienteRepository: ClienteRepository,
+    private contaCorrenteStrategy: ContaCorrenteStrategy,
+    private contaPoupancaStrategy: ContaPoupancaStrategy,
   ) {}
 
-  criarConta(saldo: number, clienteId: number, tipo: TipoConta): Conta {
-    const cliente = this.clienteRepository.getClienteById(clienteId);
+  async criar(criarContaDto): Promise<Conta> {
+    const cliente = this.clienteRepository.getCliente(criarContaDto.clienteId);
     if (!cliente) {
       throw new NotFoundException(
         'Cliente não encontrado! A conta deve estar atrelada a um cliente existente',
       );
     }
 
-    return this.contaRepository.criarConta(saldo, clienteId, tipo);
+    const conta = new ContaFactory();
+    const novaConta = conta.criarConta(
+      criarContaDto.saldo,
+      criarContaDto.clienteId,
+      criarContaDto.tipo,
+    );
+
+    return this.contaRepository.salvar(novaConta);
   }
 
-  modificarTipoConta(id: number, tipo: TipoConta): Conta {
-    const conta = this.contaRepository.getContaById(id);
-
-    if (!conta) {
-      throw new NotFoundException('Conta não encontrada!');
-    }
-
-    return this.contaRepository.modificarTipoConta(id, tipo);
+  updateTipoConta(updateContaDto): Promise<Conta> {
+    return this.contaRepository.updateTipoConta(
+      updateContaDto.id,
+      updateContaDto.tipo,
+    );
   }
 
-  removerConta(id: number): TextResponse {
-    const conta = this.contaRepository.getContaById(id);
-    if (!conta) {
-      throw new NotFoundException('Conta não encontrada!');
-    }
+  removerConta(id: string): void {
+    this.contaRepository.remover(id);
+  }
 
-    this.contaRepository.removerConta(id);
-    const contaRemovida = this.contaRepository.getContaById(id);
-    if (contaRemovida) {
-      throw new Error('Algo deu errado, conta não removida.');
+  async sacar(transacaoDto): Promise<void> {
+    const conta = await this.contaRepository.getConta(transacaoDto.id);
+
+    if (conta.tipo === 'corrente') {
+      this.contaCorrenteStrategy.sacar(
+        conta as ContaCorrente,
+        transacaoDto.valor,
+      );
+    } else if (conta.tipo === 'poupanca') {
+      this.contaPoupancaStrategy.sacar(
+        conta as ContaPoupanca,
+        transacaoDto.valor,
+      );
     }
-    return { message: 'Conta deletada com sucesso!' };
   }
 }
 //TODO: Inserir senha pra cliente e/ou gerente

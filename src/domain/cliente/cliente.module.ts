@@ -1,13 +1,16 @@
 import { Module } from '@nestjs/common';
 import { ClienteService } from '../../application/cliente.service';
 import { ContaService } from '../../application/conta.service';
-import { ClienteController } from '../../adapters/inbound/cliente.controller';
+import { ClienteController } from '../../presenter/http/cliente.controller';
 import { ContaFactory } from '../conta/ContaFactory';
-import { ClienteRepository } from '../../adapters/outbound/cliente.repository';
-import { ContaRepository } from '../../adapters/outbound/conta.repository';
+import { ClienteRepository } from '../../infrastructure/persistence/cliente/cliente.repository';
+import { ContaRepository } from '../../infrastructure/persistence/conta/conta.repository';
 import { HttpModule } from '@nestjs/axios';
 import { CepModule } from '../cep/cep.module';
 import { CepAdapter } from '../../application/cep.adapter';
+import { contaProviders } from 'src/infrastructure/persistence/conta/conta.providers';
+import { databaseProviders } from 'src/db/db.providers';
+import { clienteProviders } from 'src/infrastructure/persistence/cliente/cliente.providers';
 
 @Module({
   imports: [HttpModule, CepModule],
@@ -18,6 +21,9 @@ import { CepAdapter } from '../../application/cep.adapter';
     ClienteRepository,
     ContaRepository,
     CepAdapter,
+    ...contaProviders,
+    ...clienteProviders,
+    ...databaseProviders,
   ],
   controllers: [ClienteController],
   exports: [ClienteRepository],

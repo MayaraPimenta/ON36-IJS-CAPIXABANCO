@@ -6,17 +6,12 @@ import { TipoConta } from './TipoConta';
 
 @Injectable()
 export class ContaFactory {
-  criarConta(
-    id: number,
-    saldo: number,
-    clienteId: number,
-    tipo: TipoConta,
-  ): Conta {
+  criarConta(saldo: number, clienteId: string, tipo: TipoConta): Conta {
     switch (tipo) {
       case TipoConta.CORRENTE:
-        return new ContaCorrente(id, saldo, clienteId, tipo);
+        return new ContaCorrente(saldo, clienteId, tipo);
       case TipoConta.POUPANCA:
-        return new ContaPoupanca(id, saldo, clienteId, tipo);
+        return new ContaPoupanca(saldo, clienteId, tipo);
       default:
         throw new Error('Tipo de conta inválido');
     }

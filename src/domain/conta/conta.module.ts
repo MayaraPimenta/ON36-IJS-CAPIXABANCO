@@ -1,11 +1,14 @@
 import { Module } from '@nestjs/common';
-import { ContaController } from '../../adapters/inbound/conta.controller';
+import { ContaController } from '../../presenter/http/conta.controller';
 import { ContaService } from '../../application/conta.service';
 import { ContaFactory } from './ContaFactory';
 import { Transacao } from '../transacao/transacao.model';
 import { Conta } from './conta.model';
-import { ContaRepository } from '../../adapters/outbound/conta.repository';
-import { ClienteRepository } from '../../adapters/outbound/cliente.repository';
+import { ContaRepository } from '../../infrastructure/persistence/conta/conta.repository';
+import { ClienteRepository } from '../../infrastructure/persistence/cliente/cliente.repository';
+import { contaProviders } from 'src/infrastructure/persistence/conta/conta.providers';
+import { databaseProviders } from 'src/db/db.providers';
+import { clienteProviders } from 'src/infrastructure/persistence/cliente/cliente.providers';
 
 @Module({
   controllers: [ContaController],
@@ -16,6 +19,9 @@ import { ClienteRepository } from '../../adapters/outbound/cliente.repository';
     Conta,
     ClienteRepository,
     ContaRepository,
+    ...contaProviders,
+    ...clienteProviders,
+    ...databaseProviders,
   ],
   exports: [ContaRepository],
 })

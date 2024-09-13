@@ -1,7 +1,8 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
-import { Transacao, TipoTransacao } from '../domain/transacao/transacao.model';
-import { ContaRepository } from '../adapters/outbound/conta.repository';
-import { TransacaoRepository } from '../adapters/outbound/transacao.repository';
+import { Transacao } from '../domain/transacao/transacao.model';
+import { ContaRepository } from '../infrastructure/persistence/conta/conta.repository';
+import { TransacaoRepository } from '../infrastructure/persistence/transacao.repository';
+import { TipoTransacao } from 'src/domain/transacao/TipoTransacao';
 
 @Injectable()
 export class TransacaoService {
@@ -10,10 +11,10 @@ export class TransacaoService {
     private readonly transacaoRepository: TransacaoRepository,
   ) {}
 
-  depositar(valor: number, contaId: number): Transacao {
+  depositar(valor: number, contaId: string): Transacao {
     //confere se conta existe - getContaById
     const contas = this.contaRepository.lerContas();
-    const conta = contas.find((conta) => conta.id === Number(contaId));
+    const conta = contas.find((conta) => conta.id === contaId);
 
     if (!conta) {
       throw new NotFoundException('Conta não encontrada!');
@@ -22,7 +23,6 @@ export class TransacaoService {
 
     const transacoes = this.transacaoRepository.lerTransacoes();
     const transacao = new Transacao(
-      transacoes.length + 1,
       valor,
       new Date(),
       contaId,
@@ -39,9 +39,9 @@ export class TransacaoService {
     return transacao;
   }
 
-  sacar(valor: number, contaId: number): Transacao | null {
+  sacar(valor: number, contaId: string): Transacao | null {
     const contas = this.contaRepository.lerContas();
-    const conta = contas.find((conta) => conta.id === Number(contaId));
+    const conta = contas.find((conta) => conta.id === contaId);
 
     if (conta.saldo <= valor) {
       console.log(`Saldo insuficiente! Saldo atual: R$${conta.saldo}`);
@@ -51,7 +51,6 @@ export class TransacaoService {
 
     const transacoes = this.transacaoRepository.lerTransacoes();
     const transacao = new Transacao(
-      transacoes.length + 1,
       valor,
       new Date(),
       contaId,
@@ -68,14 +67,12 @@ export class TransacaoService {
 
   transferir(
     valor: number,
-    contaId: number,
-    contaDestinoId: number,
+    contaId: string,
+    contaDestinoId: string,
   ): Transacao | null {
     const contas = this.contaRepository.lerContas();
-    const contaEnvia = contas.find((conta) => conta.id === Number(contaId));
-    const contaRecebe = contas.find(
-      (conta) => conta.id === Number(contaDestinoId),
-    );
+    const contaEnvia = contas.find((conta) => conta.id === contaId);
+    const contaRecebe = contas.find((conta) => conta.id === contaDestinoId);
 
     console.log(contaEnvia, contaRecebe);
 
@@ -93,7 +90,6 @@ export class TransacaoService {
 
     const transacoes = this.transacaoRepository.lerTransacoes();
     const transacao = new Transacao(
-      transacoes.length + 1,
       valor,
       new Date(),
       contaId,
@@ -107,5 +103,9 @@ export class TransacaoService {
     console.log('Transferencia realizada com sucesso!');
 
     return transacao;
+  }
+
+  salvar(transacao: Transacao) {
+    console.log(transacao);
   }
 }

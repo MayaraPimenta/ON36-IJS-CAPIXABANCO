@@ -1,23 +1,19 @@
 import { Body, Controller, Delete, Param, Post } from '@nestjs/common';
 import { ClienteService } from '../../application/cliente.service';
 import { Cliente } from '../../domain/cliente/cliente.model';
-import { TextResponse } from '../../types/global';
+import { CriarClienteDto } from '../dto/cliente/criar-cliente-dto/criar-cliente-dto';
 
 @Controller('cliente')
 export class ClienteController {
   constructor(private readonly clienteService: ClienteService) {}
 
   @Post('criar')
-  criarCliente(
-    @Body('nome') nome: string,
-    @Body('cep') cep: string,
-    @Body('telefone') telefone: string,
-  ): Promise<Cliente> {
-    return this.clienteService.criarCliente(nome, cep, telefone);
+  async criar(@Body() criarClienteDto: CriarClienteDto): Promise<Cliente> {
+    return this.clienteService.criar(criarClienteDto);
   }
 
   @Delete(':id')
-  removerCliente(@Param('id') id: number): TextResponse {
-    return this.clienteService.removerCliente(id);
+  removerCliente(@Param('id') id: string): void {
+    this.clienteService.removerCliente(id);
   }
 }

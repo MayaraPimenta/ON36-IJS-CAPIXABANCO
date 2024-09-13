@@ -1,5 +1,5 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { GerenteController } from '../src/adapters/inbound/gerente.controller';
+import { GerenteController } from '../src/presenter/http/gerente.controller';
 
 describe('GerenteController', () => {
   let controller: GerenteController;
